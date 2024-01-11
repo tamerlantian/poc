@@ -10,13 +10,14 @@ class DependenciesManager {
     this._namespace = '[Server]::[Dependencies]::[Manager]';
   }
 
-  setup() {
-    this.loadDependencies();
+  async setup() {
+    await this.loadDependencies();
   }
 
-  loadDependencies() {
+  async loadDependencies() {
     console.log(` ${this._namespace}: Loading`);
 
+    const request = require('axios');
     const root = this._args.root;
     const http = require('http');
     const events = require('events');
@@ -26,6 +27,7 @@ class DependenciesManager {
     const socketModule = require('socket.io');
     const websocketClientModule = require('socket.io-client');
     const multerModule = require('multer');
+    const dotenv = require('dotenv').config();
 
     this._dependencies = {
       root,
@@ -37,15 +39,16 @@ class DependenciesManager {
       socketModule,
       websocketClientModule,
       expressModule,
+      request,
+      dotenv,
       aesjs: require('aes-js'),
       cors: require('cors'),
       path: require('path'),
       moment: require('moment'),
       crypto: require('crypto'),
-      config: require('config'),
+      config: {},
       helmet: require('helmet'),
       bcrypt: require('bcryptjs'),
-      request: require('axios'),
       jwt: require('jsonwebtoken'),
       colors: require('colors/safe'),
       compress: require('compression'),
@@ -57,9 +60,29 @@ class DependenciesManager {
       swaggerUi: require('swagger-ui-express'),
     };
 
+    await this.#loadConfigFromVeripass();
     this.#importCustomDependencies();
 
     console.log(` ${this._dependencies.colors.green(this._namespace)}: Loaded`);
+  }
+
+  async #loadConfigFromVeripass() {
+    try {
+      const veripassURL = process.env.VERIPASS_URL;
+      const endpoint = process.env.ENV_VARIABLES_ENDPOINT;
+      const apiKey = process.env.VERIPASS_API_KEY;
+
+      const response = await this._dependencies.request.get(
+        veripassURL + endpoint + apiKey,
+      );
+
+      const veripassConfig =
+        response.data?.result?.matchedItems?.[0]?.variables;
+
+      this._dependencies.config = veripassConfig;
+    } catch (error) {
+      console.error('Error al cargar configuración de Veripass:', error);
+    }
   }
 
   #importCustomDependencies() {
