@@ -37,9 +37,12 @@ class UserService {
         );
       }
 
-      this.#formatCreateEntity(data);
+      data.id = this._utilities.generator.id({ length: 15, prefix: 'usr-' });
 
-      const entity = new this._models.UserManagementModel(data, this._dependencies);
+      const entity = new this._models.UserManagementModel(
+        data,
+        this._dependencies,
+      );
       const transactionResponse = await this._db.transaction.create({
         tableName: this._tableName,
         entity: entity.get,
