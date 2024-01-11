@@ -1,0 +1,117 @@
+{
+  "FRAMEWORK": {
+    "NAME": "Loom",
+    "VERSION": "6.1.15"
+  },
+  "SERVER": {
+    "PORT": "3601",
+    "VERSION": "1.0.0",
+    "NAME": "%LOOM%",
+    "ID": "xxxx__your_id",
+    "SECRET": "xxxx__your_secret"
+  },
+  "SERVICES": {
+    "FRONTEND": {
+      "URI": "http://localhost:3500"
+    },
+    "API_MANAGER": {
+      "SECRET": "zih9cVFnC0J0otOAFXrj",
+      "URI": "http://localhost:3500"
+    },
+    "BROKER": {
+      "URI": "http://localhost:3602"
+    }
+  },
+  "SECURITY": {
+    "JWT_TOKEN_LIFETIME_HOURS": 24
+  },
+  "SETTINGS": {
+    "USE_DATABASE": false,
+    "USE_STORAGE": false,
+    "USE_PUSH": false,
+    "EVENT_SYSTEM": {
+      "INTERNAL_BUS_MANAGER_ENABLED": true,
+      "BROKER_ENABLED": true,
+      "LISTEN_PRODUCER_EVENTS_ENABLED": true,
+      "LISTEN_CONSUMER_EVENTS_ENABLED": false
+    },
+    "DATABASE_NAME": "mongodb",
+    "STORAGE_NAME": "firebase",
+    "PUSH_NAME": "firebase"
+  },
+  "DATASOURCE_CONFIGS": {
+    "FIRESTORE": {
+      "CONNECTION_OBJ": {
+        "type": "xxxx__your_config",
+        "project_id": "xxxx__your_config",
+        "private_key_id": "xxxx__your_config",
+        "private_key": "xxxx__your_configx",
+        "client_email": "xxxx__your_config",
+        "client_id": "xxxx__your_config",
+        "auth_uri": "xxxx__your_config",
+        "token_uri": "xxxx__your_config",
+        "auth_provider_x509_cert_url": "xxxx__your_config",
+        "client_x509_cert_url": "xxxx__your_config"
+      },
+      "SETTINGS": {
+        "timestampsInSnapshots": true
+      }
+    },
+    "MONGODB": {
+      "CONNECTION_OBJ": "xxxx__your_config",
+      "SETTINGS": {
+        "useNewUrlParser": true,
+        "useUnifiedTopology": true,
+        "dbName": "xxxx__your_config"
+      }
+    }
+  },
+  "STORAGESOURCE_CONFIG": {
+    "SETTINGS": {
+      "MAX_FILE_SIZE": 5242880
+    },
+    "FIRESTORE": {
+      "CONNECTION_OBJ": {
+        "apiKey": "xxxx__your_config",
+        "authDomain": "xxxx__your_config",
+        "projectId": "xxxx__your_config",
+        "storageBucket": "xxxx__your_config",
+        "messagingSenderId": "xxxx__your_config",
+        "appId": "xxxx__your_config"
+      }
+    }
+  },
+  "EMAIL": {
+    "ACTIONS": {
+      "VALIDATE_EMAIL": {
+        "FROM": "\"xxxx__your_config\" support@xxxx__your_config.com",
+        "PATH": "/validate-email"
+      },
+      "RECOVER_PASSWORD": {
+        "FROM": "\"xxxx__your_config\" support@xxxx__your_config.com",
+        "PATH": "/auth/new-password"
+      }
+    },
+    "SETTINGS": {
+      "USER": "xxxx__your_config@xxxx__your_config.com",
+      "PASSWORD": "xxxx__your_config",
+      "SECURE": true,
+      "HOST": "xxxx__your_config",
+      "PORT": 465
+    }
+  },
+  "CUSTOM_DEPENDENCIES": [
+    {
+      "name": "socketClient",
+      "package": "socket.io-client"
+    },
+    {
+      "name": "firebase",
+      "package": "firebase-admin"
+    },
+    {
+      "name": "mongodb",
+      "package": "mongodb"
+    }
+  ]
+}
